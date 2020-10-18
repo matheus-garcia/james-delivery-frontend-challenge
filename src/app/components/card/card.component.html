@@ -1,0 +1,12 @@
+<div class="card" (click)="showEstablishmentInfo()">
+  <img [src]="establishment?.picture" alt="Logo do Estabelecimento" />
+  <div>
+    <div class="card__header">
+      {{ establishment.name }}
+      <span>
+        {{ establishment.id }}
+      </span>
+    </div>
+    <div class="card__address">{{ establishment.address }}</div>
+  </div>
+</div>
