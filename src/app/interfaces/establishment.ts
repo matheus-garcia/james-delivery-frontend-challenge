@@ -11,3 +11,7 @@ export interface Establishment {
   picture: string;
   registered: string;
 }
+
+export interface EstablishmentDb {
+  establishments: Establishment[];
+}

@@ -8,11 +8,15 @@ import { EstablishmentsService } from 'src/app/services/establishments.service';
   styleUrls: ['./card-list.component.scss'],
 })
 export class CardListComponent implements OnInit {
+  
   establishments: Establishment[];
-  constructor(private establishmentsService: EstablishmentsService) {}
+  
+  constructor(private establishmentsService: EstablishmentsService) {
+    this.establishmentsService.updateEstablishmentsList();
+  }
 
   ngOnInit(): void {
-    this.establishmentsService.getAll().subscribe((establishments) => {
+    this.establishmentsService.bsEstablishments.subscribe((establishments) => {
       this.establishments = establishments;
     });
   }

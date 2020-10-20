@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Establishment } from 'src/app/interfaces/establishment';
 
 @Component({
@@ -8,14 +9,12 @@ import { Establishment } from 'src/app/interfaces/establishment';
 })
 export class CardComponent implements OnInit {
   @Input() establishment: Establishment;
-  @Output() select = new EventEmitter<Establishment>();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   showEstablishmentInfo() {
-    console.log('clicked', this.establishment);
-    this.select.emit(this.establishment);
+    this.router.navigate(['/establishment', this.establishment.id]);
   }
 }

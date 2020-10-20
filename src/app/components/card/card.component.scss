@@ -13,6 +13,10 @@
   transition: all 0.3s ease-out;
   cursor: pointer;
 
+  &:hover {
+    transform: scale(1.1);
+  }
+
   & > img {
     width: 74px;
     height: 74px;

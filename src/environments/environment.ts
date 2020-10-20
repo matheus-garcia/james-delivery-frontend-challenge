@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: 'https://my-json-server.typicode.com/james-delivery/frontend-challenge'
+  API_ENDPOINT:
+    'https://my-json-server.typicode.com/james-delivery/frontend-challenge',
 };
 
 /*
