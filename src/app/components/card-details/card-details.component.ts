@@ -1,15 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
-import { Establishment } from 'src/app/interfaces/establishment';
-import { EstablishmentsService } from 'src/app/services/establishments.service';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-import { ConfirmSavingModalComponent } from '../confirm-saving-modal/confirm-saving-modal.component';
+import { Establishment } from '@interfaces/establishment';
+import { EstablishmentsService } from '@services/establishments.service';
+import { ConfirmSavingModalComponent } from '@components/confirm-saving-modal/confirm-saving-modal.component';
 
 @Component({
   selector: 'card-details',

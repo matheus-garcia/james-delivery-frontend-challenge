@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Establishment, EstablishmentDb } from '../interfaces/establishment';
 import { IDBPDatabase } from 'idb';
 import { BehaviorSubject } from 'rxjs';
+import { Establishment, EstablishmentDb } from '@interfaces/establishment';
+import { Data } from '@enums/data.enum';
+import { environment } from '../../environments/environment';
 import { LocalDbService } from './local-db.service';
-import { Data } from '../enums/data.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -25,16 +25,11 @@ export class EstablishmentsService {
     this.db = this.localDatabase.data;
     this.getAllValuesLocally().then((dbValues) => {
       if (!dbValues.length) {
-        /* Should Update local database. Should check if values from server 
-         differ from what we have locally? */
         this.getEstablishmentsFromApi();
         this.bsEstablishments.subscribe((establishments) => {
           this.newEstablishments(establishments);
         });
       } else {
-        // Database has data, maybe I should check if Ids from server are
-        // the ones locally, if they are not, check the new Id and push to the
-        // array?
         this.establishments = dbValues;
         this.bsEstablishments.next(this.establishments);
       }

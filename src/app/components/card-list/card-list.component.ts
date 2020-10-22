@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Establishment } from 'src/app/interfaces/establishment';
-import { EstablishmentsService } from 'src/app/services/establishments.service';
+import { Establishment } from '@interfaces/establishment';
+import { EstablishmentsService } from '@services/establishments.service';
 
 @Component({
   selector: 'card-list',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IDBPDatabase, openDB } from 'idb';
-import { Data } from '../enums/data.enum';
+import { Data } from '@enums/data.enum';
 
 @Injectable({
   providedIn: 'root',
