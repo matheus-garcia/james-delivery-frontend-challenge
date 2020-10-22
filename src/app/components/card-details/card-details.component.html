@@ -21,7 +21,7 @@
   <form
     class="form"
     [formGroup]="establishmentForm"
-    (ngSubmit)="saveEstablishment()"
+    (ngSubmit)="openConfirmation()"
   >
     <h2>Informações Básicas</h2>
     <hr />
@@ -30,7 +30,7 @@
         <label for="name">Nome</label>
         <input name="name" type="text" formControlName="name" />
         <div
-          *ngIf="submitted && formControls.name.errors"
+          *ngIf="formControls.name.errors"
           class="error"
         >
           <div>{{ handleErrorMessage(establishmentForm.get("name")) }}</div>
@@ -44,7 +44,7 @@
           </option>
         </select>
         <div
-          *ngIf="submitted && formControls.city.errors"
+          *ngIf="formControls.city.errors"
           class="error"
         >
           <div>{{ handleErrorMessage(establishmentForm.get("city")) }}</div>
@@ -54,7 +54,7 @@
         <label for="address">Endereço</label>
         <input name="address" type="text" formControlName="address" />
         <div
-          *ngIf="submitted && formControls.address.errors"
+          *ngIf="formControls.address.errors"
           class="error"
         >
           <div>{{ handleErrorMessage(establishmentForm.get("address")) }}</div>
@@ -73,7 +73,7 @@
           </option>
         </select>
         <div
-          *ngIf="submitted && formControls.bank.errors"
+          *ngIf="formControls.bank.errors"
           class="error"
         >
           <div>{{ handleErrorMessage(establishmentForm.get("bank")) }}</div>
@@ -90,7 +90,7 @@
           </option>
         </select>
         <div
-          *ngIf="submitted && formControls.accountType.errors"
+          *ngIf="formControls.accountType.errors"
           class="error"
         >
           <div>
@@ -108,7 +108,7 @@
           required
         />
         <div
-          *ngIf="submitted && formControls.cpfOrcnpj.errors"
+          *ngIf="formControls.cpfOrcnpj.errors"
           class="error"
         >
           <div>
@@ -123,7 +123,7 @@
           <input type="text" formControlName="agencyDigit" required mask='0'/>
         </div>
         <div
-          *ngIf="submitted && formControls.agency.errors"
+          *ngIf="formControls.agency.errors"
           class="error"
         >
           <div>
@@ -131,7 +131,7 @@
           </div>
         </div>
         <div
-          *ngIf="submitted && formControls.agencyDigit.errors"
+          *ngIf="formControls.agencyDigit.errors"
           class="error"
         >
           <div>
@@ -146,7 +146,7 @@
           <input type="text" formControlName="accountNumberDigit" mask='0'/>
         </div>
         <div
-          *ngIf="submitted && formControls.accountNumber.errors"
+          *ngIf="formControls.accountNumber.errors"
           class="error"
         >
           <div>
@@ -154,7 +154,7 @@
           </div>
         </div>
         <div
-          *ngIf="submitted && formControls.accountNumberDigit.errors"
+          *ngIf="formControls.accountNumberDigit.errors"
           class="error"
         >
           <div>
@@ -172,7 +172,7 @@
           </option>
         </select>
         <div
-          *ngIf="submitted && formControls.automaticWithdrawal.errors"
+          *ngIf="formControls.automaticWithdrawal.errors"
           class="error"
         >
           <div>

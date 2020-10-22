@@ -28,6 +28,7 @@
         font-size: 21px;
         line-height: 24px;
         color: #4c5164;
+        overflow-wrap: anywhere;
       }
 
       &-id {
@@ -61,6 +62,7 @@
       left: 8px;
       top: 8px;
       border-radius: 3px;
+      align-self: center;
     }
   }
 

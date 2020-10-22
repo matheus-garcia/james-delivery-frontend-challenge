@@ -1,28 +1,36 @@
+//Core
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { NgxMaskModule } from 'ngx-mask';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
+//Angular Material Components
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+
+// App
 import { AppComponent } from './app.component';
+
+//Modules
+import { AppRoutingModule } from './app-routing.module';
+import { AppConfigModule } from './appconfig.module';
 
 // Components
 import { HeaderComponent } from './components/header/header.component';
 import { CardComponent } from './components/card/card.component';
-import { EstablishmentDetailsComponent } from './pages/establishment-details/establishment-details.component';
-import { CustomInputComponent } from './components/custom-input/custom-input.component';
+import { CardListComponent } from './components/card-list/card-list.component';
+import { CardDetailsComponent } from './components/card-details/card-details.component';
 
 // Pages
 import { HomeComponent } from './pages/home/home.component';
+import { EstablishmentDetailsComponent } from './pages/establishment-details/establishment-details.component';
 
 // Services
 import { EstablishmentsService } from './services/establishments.service';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { CardListComponent } from './components/card-list/card-list.component';
-import { CardDetailsComponent } from './components/card-details/card-details.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalDbService } from './services/local-db.service';
-import { AppConfigModule } from './appconfig.module';
+import { ConfirmSavingModalComponent } from './components/confirm-saving-modal/confirm-saving-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +41,11 @@ import { AppConfigModule } from './appconfig.module';
     CardListComponent,
     CardDetailsComponent,
     EstablishmentDetailsComponent,
-    CustomInputComponent,
+    ConfirmSavingModalComponent,
   ],
   imports: [
+    MatDialogModule,
+    MatButtonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

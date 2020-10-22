@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Establishment } from 'src/app/interfaces/establishment';
-import { EstablishmentsService } from 'src/app/services/establishments.service';
 
 @Component({
   selector: 'app-home',

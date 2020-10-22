@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Establishment } from 'src/app/interfaces/establishment';
 import { EstablishmentsService } from 'src/app/services/establishments.service';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { ConfirmSavingModalComponent } from '../confirm-saving-modal/confirm-saving-modal.component';
 
 @Component({
-  selector: 'app-card-details',
+  selector: 'card-details',
   templateUrl: './card-details.component.html',
   styleUrls: ['./card-details.component.scss'],
 })
@@ -34,13 +40,27 @@ export class CardDetailsComponent implements OnInit {
   ];
   accountTypes: Array<string> = ['Conta Corrente', 'Poupança'];
   automaticWithdrawalOptions: Array<string> = ['Sim', 'Não'];
-  submitted = false;
   constructor(
     private establishmentService: EstablishmentsService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public dialog: MatDialog
   ) {}
+
+  openConfirmation(): void {
+    if (this.establishmentForm.invalid) {
+      return;
+    }
+    const dialogRef = this.dialog.open(ConfirmSavingModalComponent, {
+      width: '25rem',
+    });
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.saveEstablishment();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(({ id }) => {
@@ -59,9 +79,15 @@ export class CardDetailsComponent implements OnInit {
 
   initializeForm(): void {
     this.establishmentForm = this.fb.group({
-      name: [this.establishment.name, [Validators.required]],
+      name: [
+        this.establishment.name,
+        [Validators.required, Validators.maxLength(76)],
+      ],
       city: [this.establishment.city, [Validators.required]],
-      address: [this.establishment.address, [Validators.required]],
+      address: [
+        this.establishment.address,
+        [Validators.required, Validators.maxLength(76)],
+      ],
       bank: [this.establishment.bank, [Validators.required]],
       accountType: [this.establishment.accountType, [Validators.required]],
       cpfOrcnpj: [this.establishment.cpfOrcnpj, [Validators.minLength(11)]],
@@ -116,12 +142,6 @@ export class CardDetailsComponent implements OnInit {
   }
 
   saveEstablishment(): void {
-    this.submitted = true;
-
-    if (this.establishmentForm.invalid) {
-      return;
-    }
-
     const newEstablishmentValues = {
       ...this.establishment,
       ...this.establishmentForm.value,

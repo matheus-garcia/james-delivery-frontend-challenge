@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Establishment } from 'src/app/interfaces/establishment';
 
 @Component({
-  selector: 'app-card',
+  selector: 'card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
