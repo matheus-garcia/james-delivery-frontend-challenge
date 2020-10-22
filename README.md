@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-    <img src="assets/images/james_logo_readme.svg" alt="Logo" width="191" height="131">
+    <img src="assets/james_logo.svg" alt="Logo" width="191" height="131">
 </p>
 <p>
   <h3 align="center">Front-end Challenge :trophy:</h3>
