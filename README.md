@@ -18,6 +18,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Deploy
+
+Deploy on docker with Nginx use:
+`docker-compose up --build james-delivery-frontend-challenge`
+
 ## Challenge
 
 [The Challenge](https://github.com/james-delivery/frontend-challenge)
