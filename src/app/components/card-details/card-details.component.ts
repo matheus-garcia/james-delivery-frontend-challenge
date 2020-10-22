@@ -46,7 +46,6 @@ export class CardDetailsComponent implements OnInit {
     this.route.params.subscribe(({ id }) => {
       if (id) {
         this.establishmentService.getEstablishmentById(id).then((res) => {
-          console.log('response', res);
           this.establishment = res;
           this.initializeForm();
         });
@@ -61,16 +60,28 @@ export class CardDetailsComponent implements OnInit {
   initializeForm(): void {
     this.establishmentForm = this.fb.group({
       name: [this.establishment.name, [Validators.required]],
-      city: ['', [Validators.required]],
+      city: [this.establishment.city, [Validators.required]],
       address: [this.establishment.address, [Validators.required]],
-      bank: ['', [Validators.required]],
-      accountType: ['', [Validators.required]],
-      cpfOrcnpj: ['', [Validators.minLength(11)]],
-      agency: ['', [Validators.required, Validators.minLength(4)]],
-      agencyDigit: ['', [Validators.required]],
-      accountNumber: ['', [Validators.required, Validators.minLength(5)]],
-      accountNumberDigit: ['', [Validators.required]],
-      automaticWithdrawal: ['', [Validators.required]],
+      bank: [this.establishment.bank, [Validators.required]],
+      accountType: [this.establishment.accountType, [Validators.required]],
+      cpfOrcnpj: [this.establishment.cpfOrcnpj, [Validators.minLength(11)]],
+      agency: [
+        this.establishment.agency,
+        [Validators.required, Validators.minLength(4)],
+      ],
+      agencyDigit: [this.establishment.agencyDigit, [Validators.required]],
+      accountNumber: [
+        this.establishment.accountNumber,
+        [Validators.required, Validators.minLength(5)],
+      ],
+      accountNumberDigit: [
+        this.establishment.accountNumberDigit,
+        [Validators.required],
+      ],
+      automaticWithdrawal: [
+        this.establishment.automaticWithdrawal,
+        [Validators.required],
+      ],
     });
   }
 
@@ -87,26 +98,35 @@ export class CardDetailsComponent implements OnInit {
     } else if (formControl.errors.maxlength) {
       const requiredLength = formControl.errors.maxlength.requiredLength;
       return `O campo deve ter no máximo ${requiredLength} caracteres  *`;
-    } else if (formControl.controls.agency.errors) {
-      return 'Campo Obrigatório *';
     }
   }
 
-  get formControls() { return this.establishmentForm.controls; }
+  get formControls() {
+    return this.establishmentForm.controls;
+  }
+
+  updateAndFetchEstablishment(establishment: Establishment): void {
+    this.establishmentService.saveEstablishment(establishment).then(() => {
+      this.establishmentService
+        .getEstablishmentById(this.establishment.id)
+        .then((res) => {
+          this.establishment = res;
+        });
+    });
+  }
 
   saveEstablishment(): void {
-
     this.submitted = true;
-    console.log(this.establishmentForm);
 
     if (this.establishmentForm.invalid) {
       return;
     }
 
-    // display form values on success
-    alert(
-      'SUCCESS!! :-)\n\n' +
-        JSON.stringify(this.establishmentForm.value, null, 4)
-    );
+    const newEstablishmentValues = {
+      ...this.establishment,
+      ...this.establishmentForm.value,
+    };
+
+    this.updateAndFetchEstablishment(newEstablishmentValues);
   }
 }

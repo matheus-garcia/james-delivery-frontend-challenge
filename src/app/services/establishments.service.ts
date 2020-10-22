@@ -24,13 +24,10 @@ export class EstablishmentsService {
   constructor(private http: HttpClient, private localDatabase: LocalDbService) {
     this.db = this.localDatabase.data;
     this.getAllValuesLocally().then((dbValues) => {
-      console.log("entrou 1", !dbValues.length)
       if (!dbValues.length) {
-        console.log("entrou")
         /* Should Update local database. Should check if values from server 
          differ from what we have locally? */
         this.getEstablishmentsFromApi();
-        console.log('bsEstablishments', this.bsEstablishments);
         this.bsEstablishments.subscribe((establishments) => {
           this.newEstablishments(establishments);
         });
@@ -48,9 +45,6 @@ export class EstablishmentsService {
     establishments.forEach((establishment) => {
       let transaction = this.db.transaction(Data.STORE_NAME, 'readwrite');
       transaction.store.add(establishment);
-      transaction.done
-        .then(() => console.log('success'))
-        .catch(() => console.log('failed trying to insert duplicated key'));
     });
   }
 
@@ -65,24 +59,23 @@ export class EstablishmentsService {
   }
 
   private getEstablishmentsFromApi(): void {
-    /*Since there are two endpoints with same data, try to get data 
-    from both endpoints.I'm just assuming that is the reason there 
-    two endpoints with same data */
-    console.log('aqui');
-    try {
-      this.http
-        .get<Establishment[]>(`${this.apiUrl}/establishments`)
-        .subscribe((res) => {
-          this.bsEstablishments.next(res);
-          this.establishments = res;
+    this.http.get<Establishment[]>(`${this.apiUrl}/establishments`).subscribe(
+      (res) => {
+        this.bsEstablishments.next(res);
+        this.establishments = res;
+      },
+      () => {
+        this.http.get<EstablishmentDb>(`${this.apiUrl}/db`).subscribe((res) => {
+          this.bsEstablishments.next(res.establishments);
+          this.establishments = res.establishments;
         });
-    } catch (err) {
-      console.log('Trying to get data from sec api');
-      this.http.get<EstablishmentDb>(`${this.apiUrl}/db`).subscribe((res) => {
-        this.bsEstablishments.next(res.establishments);
-        this.establishments = res.establishments;
-      });
-    }
+      }
+    );
+  }
+
+  async saveEstablishment(values: Establishment) {
+    let transaction = this.db.transaction(Data.STORE_NAME, 'readwrite');
+    return transaction.store.put(values);
   }
 
   async getEstablishmentById(id): Promise<Establishment> {

@@ -10,6 +10,15 @@ export interface Establishment {
   phone: string;
   picture: string;
   registered: string;
+  city?: string;
+  bank?: string;
+  accountType?: string;
+  cpfOrcnpj?: string;
+  agency?: number;
+  agencyDigit?: number;
+  accountNumber?: number;
+  accountNumberDigit?: number;
+  automaticWithdrawal?: string;
 }
 
 export interface EstablishmentDb {

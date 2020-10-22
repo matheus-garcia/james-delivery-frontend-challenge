@@ -10,7 +10,6 @@ export class LocalDbService {
   constructor() {}
 
   async startDatabase(): Promise<void> {
-    console.log('starting');
     this.data = await openDB('pwa-establishments', 1, {
       upgrade(db) {
         db.createObjectStore(Data.STORE_NAME, { keyPath: 'id' });
