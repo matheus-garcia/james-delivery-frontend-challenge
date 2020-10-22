@@ -1,8 +1,6 @@
 <br />
 <p align="center">
-  <a href="https://github.com/snowmanlabs/frontend-challenge">
-    <img src="assets/logo.svg" alt="Logo" width="191" height="131">
-  </a>
+    <img src="assets/images/james_logo_readme.svg" alt="Logo" width="191" height="131">
 </p>
 <p>
   <h3 align="center">Front-end Challenge :trophy:</h3>
@@ -11,7 +9,6 @@
     <a href="https://www.figma.com/file/6Z1eafamhmHr6n7DWbm4I9/Teste-James">All Figma Screenshots</a>
   </p>
 </p>
-
 
 # James Delivery Frontend Challenge
 
