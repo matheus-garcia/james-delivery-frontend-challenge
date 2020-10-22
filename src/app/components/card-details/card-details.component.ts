@@ -33,7 +33,7 @@ export class CardDetailsComponent implements OnInit {
     'Belo Horizonte',
   ];
   accountTypes: Array<string> = ['Conta Corrente', 'Poupança'];
-  isAutomatic: Array<string> = ['Sim', 'Não'];
+  automaticWithdrawalOptions: Array<string> = ['Sim', 'Não'];
   submitted = false;
   constructor(
     private establishmentService: EstablishmentsService,
@@ -66,11 +66,11 @@ export class CardDetailsComponent implements OnInit {
       bank: ['', [Validators.required]],
       accountType: ['', [Validators.required]],
       cpfOrcnpj: ['', [Validators.minLength(11)]],
-      agency: ['', [Validators.required]],
+      agency: ['', [Validators.required, Validators.minLength(4)]],
       agencyDigit: ['', [Validators.required]],
-      accountNumber: ['', [Validators.required]],
+      accountNumber: ['', [Validators.required, Validators.minLength(5)]],
       accountNumberDigit: ['', [Validators.required]],
-      isAutomatic: ['', [Validators.required]],
+      automaticWithdrawal: ['', [Validators.required]],
     });
   }
 
@@ -81,14 +81,14 @@ export class CardDetailsComponent implements OnInit {
   handleErrorMessage(formControl): string | null {
     if (formControl.errors.required) {
       return 'Campo Obrigatório *';
-    } else if (formControl.errors.email) {
-      return 'Formato de email inválido';
     } else if (formControl.errors.minlength) {
       const requiredLength = formControl.errors.minlength.requiredLength;
       return `O campo deve ter no mínino ${requiredLength} caracteres *`;
     } else if (formControl.errors.maxlength) {
       const requiredLength = formControl.errors.maxlength.requiredLength;
       return `O campo deve ter no máximo ${requiredLength} caracteres  *`;
+    } else if (formControl.controls.agency.errors) {
+      return 'Campo Obrigatório *';
     }
   }
 

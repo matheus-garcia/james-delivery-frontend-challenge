@@ -26,28 +26,37 @@
     <h2>Informações Básicas</h2>
     <hr />
     <div class="form__info">
-      <div class="form__info-data">
+      <div class="form__info__data">
         <label for="name">Nome</label>
         <input name="name" type="text" formControlName="name" />
-        <div *ngIf="submitted && formControls.name.errors">
+        <div
+          *ngIf="submitted && formControls.name.errors"
+          class="error"
+        >
           <div>{{ handleErrorMessage(establishmentForm.get("name")) }}</div>
         </div>
       </div>
-      <div class="form__info-data">
+      <div class="form__info__data">
         <label for="city">Cidade</label>
         <select name="city" formControlName="city" required>
           <option *ngFor="let city of cities" value="{{ city }}">
             {{ city }}
           </option>
         </select>
-        <div *ngIf="submitted && formControls.city.errors">
+        <div
+          *ngIf="submitted && formControls.city.errors"
+          class="error"
+        >
           <div>{{ handleErrorMessage(establishmentForm.get("city")) }}</div>
         </div>
       </div>
-      <div class="form__info-data">
+      <div class="form__info__data">
         <label for="address">Endereço</label>
         <input name="address" type="text" formControlName="address" />
-        <div *ngIf="submitted && formControls.address.errors">
+        <div
+          *ngIf="submitted && formControls.address.errors"
+          class="error"
+        >
           <div>{{ handleErrorMessage(establishmentForm.get("address")) }}</div>
         </div>
       </div>
@@ -56,18 +65,21 @@
     <h2>Financeiro</h2>
     <hr />
     <div class="form__info">
-      <div class="form__info-data">
+      <div class="form__info__data">
         <label for="bank">Banco</label>
         <select name="bank" formControlName="bank" required>
           <option *ngFor="let bank of banks" value="{{ bank }}">
             {{ bank }}
           </option>
         </select>
-        <div *ngIf="submitted && formControls.bank.errors">
+        <div
+          *ngIf="submitted && formControls.bank.errors"
+          class="error"
+        >
           <div>{{ handleErrorMessage(establishmentForm.get("bank")) }}</div>
         </div>
       </div>
-      <div class="form__info-data">
+      <div class="form__info__data">
         <label for="accountType">Tipo de Conta</label>
         <select name="accountType" formControlName="accountType" required>
           <option
@@ -77,13 +89,16 @@
             {{ accountType }}
           </option>
         </select>
-        <div *ngIf="submitted && formControls.accountType.errors">
+        <div
+          *ngIf="submitted && formControls.accountType.errors"
+          class="error"
+        >
           <div>
             {{ handleErrorMessage(establishmentForm.get("accountType")) }}
           </div>
         </div>
       </div>
-      <div class="form__info-data">
+      <div class="form__info__data">
         <label for="cpfOrcnpj">CPF / CNPJ</label>
         <input
           name="cpfOrcnpj"
@@ -92,41 +107,56 @@
           mask="000.000.000-00||00.000.000/0000-00"
           required
         />
-        <div *ngIf="submitted && formControls.cpfOrcnpj.errors">
+        <div
+          *ngIf="submitted && formControls.cpfOrcnpj.errors"
+          class="error"
+        >
           <div>
             {{ handleErrorMessage(establishmentForm.get("cpfOrcnpj")) }}
           </div>
         </div>
       </div>
-      <div class="form__info-doubleData">
+      <div class="form__info__doubleData">
         <label>Agência</label>
-        <div class="form__info-doubleData-inputs">
-          <input type="text" formControlName="agency" required />
-          <input type="text" formControlName="agencyDigit" required />
+        <div class="form__info__doubleData-inputs">
+          <input type="text" formControlName="agency" required mask='0000'/>
+          <input type="text" formControlName="agencyDigit" required mask='0'/>
         </div>
-        <div *ngIf="submitted && formControls.agency.errors">
+        <div
+          *ngIf="submitted && formControls.agency.errors"
+          class="error"
+        >
           <div>
             {{ handleErrorMessage(establishmentForm.get("agency")) }}
           </div>
         </div>
-        <div *ngIf="submitted && formControls.agencyDigit.errors">
+        <div
+          *ngIf="submitted && formControls.agencyDigit.errors"
+          class="error"
+        >
           <div>
             {{ handleErrorMessage(establishmentForm.get("agencyDigit")) }}
           </div>
         </div>
       </div>
-      <div class="form__info-doubleData">
+      <div class="form__info__doubleData">
         <label>Conta</label>
-        <div class="form__info-doubleData-inputs">
-          <input type="text" formControlName="accountNumber" />
-          <input type="text" formControlName="accountNumberDigit" />
+        <div class="form__info__doubleData-inputs">
+          <input type="text" formControlName="accountNumber" mask='00000000' />
+          <input type="text" formControlName="accountNumberDigit" mask='0'/>
         </div>
-        <div *ngIf="submitted && formControls.accountNumber.errors">
+        <div
+          *ngIf="submitted && formControls.accountNumber.errors"
+          class="error"
+        >
           <div>
             {{ handleErrorMessage(establishmentForm.get("accountNumber")) }}
           </div>
         </div>
-        <div *ngIf="submitted && formControls.accountNumberDigit.errors">
+        <div
+          *ngIf="submitted && formControls.accountNumberDigit.errors"
+          class="error"
+        >
           <div>
             {{
               handleErrorMessage(establishmentForm.get("accountNumberDigit"))
@@ -134,16 +164,19 @@
           </div>
         </div>
       </div>
-      <div class="form__info-data">
-        <label for="isAutomatic">Saque Automático</label>
-        <select name="isAutomatic" formControlName="isAutomatic">
-          <option *ngFor="let option of isAutomatic" value="{{ option }}">
+      <div class="form__info__data">
+        <label for="automaticWithdrawal">Saque Automático</label>
+        <select name="automaticWithdrawal" formControlName="automaticWithdrawal">
+          <option *ngFor="let option of automaticWithdrawalOptions" value="{{ option }}">
             {{ option }}
           </option>
         </select>
-        <div *ngIf="submitted && formControls.isAutomatic.errors">
+        <div
+          *ngIf="submitted && formControls.automaticWithdrawal.errors"
+          class="error"
+        >
           <div>
-            {{ handleErrorMessage(establishmentForm.get("isAutomatic")) }}
+            {{ handleErrorMessage(establishmentForm.get("automaticWithdrawal")) }}
           </div>
         </div>
       </div>
