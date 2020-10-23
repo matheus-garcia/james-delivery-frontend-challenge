@@ -8,7 +8,7 @@ export interface Establishment {
   longitude: string;
   name: string;
   phone: string;
-  picture: string;
+  picture: string | ArrayBuffer;
   registered: string;
   city?: string;
   bank?: string;

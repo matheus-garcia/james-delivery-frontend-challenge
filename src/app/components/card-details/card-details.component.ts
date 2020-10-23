@@ -15,6 +15,7 @@ import { ConfirmSavingModalComponent } from '@components/confirm-saving-modal/co
 export class CardDetailsComponent implements OnInit {
   establishment: Establishment;
   establishmentForm: FormGroup;
+  imageData: string | ArrayBuffer;
 
   mask: Subject<string> = new Subject();
   banks: Array<string> = [
@@ -138,11 +139,28 @@ export class CardDetailsComponent implements OnInit {
   }
 
   saveEstablishment(): void {
-    const newEstablishmentValues = {
+    let newEstablishmentValues = {
       ...this.establishment,
       ...this.establishmentForm.value,
     };
-
+    if (this.imageData) {
+      newEstablishmentValues = {
+        ...this.establishment,
+        picture: this.imageData,
+      };
+    }
     this.updateAndFetchEstablishment(newEstablishmentValues);
+  }
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]);
+
+      reader.onload = (event) => {
+        this.imageData = event.target.result;
+      };
+    }
   }
 }

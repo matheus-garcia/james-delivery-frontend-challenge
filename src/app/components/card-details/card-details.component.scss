@@ -20,6 +20,20 @@
     font-family: "Roboto", sans-serif;
     margin: 10px 0px;
 
+    &__logo {
+      & > img {
+        max-width: 74px;
+        height: 74px;
+        align-self: center;
+        & :active {
+          border: none;
+        }
+      }
+    }
+    *:focus {
+      outline: 0 !important;
+    }
+
     &__info {
       align-self: center;
       &-title {
@@ -42,27 +56,15 @@
     }
 
     button {
-      margin-right: 2rem;
       background: none;
       border: none;
       border-radius: 50%;
-      height: 36px;
-      width: 36px;
       transition: all 0.3s;
       align-self: center;
       cursor: pointer;
       & :hover {
         box-shadow: 1px 4px 8px 0 rgba(235, 194, 194, 0.658);
       }
-    }
-
-    & > img {
-      width: 74px;
-      height: 74px;
-      left: 8px;
-      top: 8px;
-      border-radius: 3px;
-      align-self: center;
     }
   }
 
@@ -114,7 +116,7 @@
         &:focus {
           outline: none;
         }
-        
+
         &:active {
           outline: none;
           transform: translateY(4px);

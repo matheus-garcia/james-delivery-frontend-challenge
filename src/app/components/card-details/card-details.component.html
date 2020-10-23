@@ -7,7 +7,22 @@
         alt="James Delivery Logo"
       />
     </button>
-    <img [src]="establishment?.picture" alt="Logo do Estabelecimento" />
+
+    <button class="card-details__header__logo" (click)="imageInput.click()">
+      <img
+        [src]="imageData || establishment?.picture"
+        alt="Logo do Estabelecimento"
+      />
+    </button>
+
+    <input
+      type="file"
+      accept="image/*"
+      #imageInput
+      style="display: none"
+      (change)="onSelectFile($event)"
+    />
+
     <div class="card-details__header__info">
       <div class="card-details__header__info-title">
         {{ establishment.name }}
@@ -29,10 +44,7 @@
       <div class="form__info__data">
         <label for="name">Nome</label>
         <input name="name" type="text" formControlName="name" />
-        <div
-          *ngIf="formControls.name.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.name.errors" class="error">
           <div>{{ handleErrorMessage(establishmentForm.get("name")) }}</div>
         </div>
       </div>
@@ -43,20 +55,14 @@
             {{ city }}
           </option>
         </select>
-        <div
-          *ngIf="formControls.city.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.city.errors" class="error">
           <div>{{ handleErrorMessage(establishmentForm.get("city")) }}</div>
         </div>
       </div>
       <div class="form__info__data">
         <label for="address">Endereço</label>
         <input name="address" type="text" formControlName="address" />
-        <div
-          *ngIf="formControls.address.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.address.errors" class="error">
           <div>{{ handleErrorMessage(establishmentForm.get("address")) }}</div>
         </div>
       </div>
@@ -72,10 +78,7 @@
             {{ bank }}
           </option>
         </select>
-        <div
-          *ngIf="formControls.bank.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.bank.errors" class="error">
           <div>{{ handleErrorMessage(establishmentForm.get("bank")) }}</div>
         </div>
       </div>
@@ -89,10 +92,7 @@
             {{ accountType }}
           </option>
         </select>
-        <div
-          *ngIf="formControls.accountType.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.accountType.errors" class="error">
           <div>
             {{ handleErrorMessage(establishmentForm.get("accountType")) }}
           </div>
@@ -107,10 +107,7 @@
           mask="000.000.000-00||00.000.000/0000-00"
           required
         />
-        <div
-          *ngIf="formControls.cpfOrcnpj.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.cpfOrcnpj.errors" class="error">
           <div>
             {{ handleErrorMessage(establishmentForm.get("cpfOrcnpj")) }}
           </div>
@@ -119,21 +116,15 @@
       <div class="form__info__doubleData">
         <label>Agência</label>
         <div class="form__info__doubleData-inputs">
-          <input type="text" formControlName="agency" required mask='0000'/>
-          <input type="text" formControlName="agencyDigit" required mask='0'/>
+          <input type="text" formControlName="agency" required mask="0000" />
+          <input type="text" formControlName="agencyDigit" required mask="0" />
         </div>
-        <div
-          *ngIf="formControls.agency.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.agency.errors" class="error">
           <div>
             {{ handleErrorMessage(establishmentForm.get("agency")) }}
           </div>
         </div>
-        <div
-          *ngIf="formControls.agencyDigit.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.agencyDigit.errors" class="error">
           <div>
             {{ handleErrorMessage(establishmentForm.get("agencyDigit")) }}
           </div>
@@ -142,21 +133,15 @@
       <div class="form__info__doubleData">
         <label>Conta</label>
         <div class="form__info__doubleData-inputs">
-          <input type="text" formControlName="accountNumber" mask='00000000' />
-          <input type="text" formControlName="accountNumberDigit" mask='0'/>
+          <input type="text" formControlName="accountNumber" mask="00000000" />
+          <input type="text" formControlName="accountNumberDigit" mask="0" />
         </div>
-        <div
-          *ngIf="formControls.accountNumber.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.accountNumber.errors" class="error">
           <div>
             {{ handleErrorMessage(establishmentForm.get("accountNumber")) }}
           </div>
         </div>
-        <div
-          *ngIf="formControls.accountNumberDigit.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.accountNumberDigit.errors" class="error">
           <div>
             {{
               handleErrorMessage(establishmentForm.get("accountNumberDigit"))
@@ -166,17 +151,22 @@
       </div>
       <div class="form__info__data">
         <label for="automaticWithdrawal">Saque Automático</label>
-        <select name="automaticWithdrawal" formControlName="automaticWithdrawal">
-          <option *ngFor="let option of automaticWithdrawalOptions" value="{{ option }}">
+        <select
+          name="automaticWithdrawal"
+          formControlName="automaticWithdrawal"
+        >
+          <option
+            *ngFor="let option of automaticWithdrawalOptions"
+            value="{{ option }}"
+          >
             {{ option }}
           </option>
         </select>
-        <div
-          *ngIf="formControls.automaticWithdrawal.errors"
-          class="error"
-        >
+        <div *ngIf="formControls.automaticWithdrawal.errors" class="error">
           <div>
-            {{ handleErrorMessage(establishmentForm.get("automaticWithdrawal")) }}
+            {{
+              handleErrorMessage(establishmentForm.get("automaticWithdrawal"))
+            }}
           </div>
         </div>
       </div>
