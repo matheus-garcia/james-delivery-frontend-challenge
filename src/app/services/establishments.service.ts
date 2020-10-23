@@ -30,8 +30,6 @@ export class EstablishmentsService {
           this.createNewEstablishments(establishments);
         });
       } else {
-        // this.establishments = dbValues;
-        // this.bsEstablishments.next(this.establishments);
         this.handleNewerEstablishments(dbValues);
       }
     });
@@ -70,7 +68,7 @@ export class EstablishmentsService {
     this.establishments = result;
     this.bsEstablishments.next(this.establishments);
     this.bsEstablishments.subscribe((establishments) => {
-      this.putEstablishments(establishments);
+      this.updateEstablishments(establishments);
     });
   }
 
@@ -81,7 +79,7 @@ export class EstablishmentsService {
     });
   }
 
-  private putEstablishments(establishments: Establishment[]): void {
+  private updateEstablishments(establishments: Establishment[]): void {
     let transaction = this.db.transaction(Data.STORE_NAME, 'readwrite');
     establishments.forEach((establishment) => {
       transaction.store.put(establishment);
