@@ -14,9 +14,11 @@
 
 Run `npm install -g @angular/cli` if you don't have the angular CLI already installed.
 
+Run `npm install` for dependencies install.
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Deploy: 
+## Deploy
 
 ### Using minified files
 
