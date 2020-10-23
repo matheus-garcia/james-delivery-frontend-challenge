@@ -37,8 +37,8 @@ export class EstablishmentsService {
   }
 
   private newEstablishments(establishments: Establishment[]): void {
+    let transaction = this.db.transaction(Data.STORE_NAME, 'readwrite');
     establishments.forEach((establishment) => {
-      let transaction = this.db.transaction(Data.STORE_NAME, 'readwrite');
       transaction.store.add(establishment);
     });
   }
@@ -53,11 +53,23 @@ export class EstablishmentsService {
     });
   }
 
+  orderById(a, b) {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
+  }
+
   private getEstablishmentsFromApi(): void {
     this.http.get<Establishment[]>(`${this.apiUrl}/establishments`).subscribe(
       (res) => {
         this.bsEstablishments.next(res);
         this.establishments = res;
+
+        this.establishments.sort(this.orderById);
       },
       () => {
         this.http.get<EstablishmentDb>(`${this.apiUrl}/db`).subscribe((res) => {

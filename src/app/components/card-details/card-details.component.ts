@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
@@ -62,10 +68,20 @@ export class CardDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(({ id }) => {
       if (id) {
-        this.establishmentService.getEstablishmentById(id).then((res) => {
-          this.establishment = res;
-          this.initializeForm();
-        });
+        this.establishmentService
+          .getEstablishmentById(id)
+          .then((res) => {
+            if (res) {
+              this.establishment = res;
+            } else {
+              this.goHome();
+            }
+          })
+          .finally(() => {
+            this.initializeForm();
+          });
+      } else {
+        this.goHome();
       }
     });
   }
@@ -77,32 +93,41 @@ export class CardDetailsComponent implements OnInit {
   initializeForm(): void {
     this.establishmentForm = this.fb.group({
       name: [
-        this.establishment.name,
+        this.establishment.name || '',
         [Validators.required, Validators.maxLength(76)],
       ],
-      city: [this.establishment.city, [Validators.required]],
+      city: [this.establishment.city || '', [Validators.required]],
       address: [
-        this.establishment.address,
+        this.establishment.address || '',
         [Validators.required, Validators.maxLength(76)],
       ],
-      bank: [this.establishment.bank, [Validators.required]],
-      accountType: [this.establishment.accountType, [Validators.required]],
-      cpfOrcnpj: [this.establishment.cpfOrcnpj, [Validators.minLength(11)]],
+      bank: [this.establishment.bank || '', [Validators.required]],
+      accountType: [
+        this.establishment.accountType || '',
+        [Validators.required],
+      ],
+      cpfOrcnpj: [
+        this.establishment.cpfOrcnpj || '',
+        [Validators.minLength(11) || Validators.minLength(14)],
+      ],
       agency: [
-        this.establishment.agency,
+        this.establishment.agency || '',
         [Validators.required, Validators.minLength(4)],
       ],
-      agencyDigit: [this.establishment.agencyDigit, [Validators.required]],
+      agencyDigit: [
+        this.establishment.agencyDigit || '',
+        [Validators.required],
+      ],
       accountNumber: [
-        this.establishment.accountNumber,
+        this.establishment.accountNumber || '',
         [Validators.required, Validators.minLength(5)],
       ],
       accountNumberDigit: [
-        this.establishment.accountNumberDigit,
+        this.establishment.accountNumberDigit || '',
         [Validators.required],
       ],
       automaticWithdrawal: [
-        this.establishment.automaticWithdrawal,
+        this.establishment.automaticWithdrawal || 'Não',
         [Validators.required],
       ],
     });
@@ -121,6 +146,8 @@ export class CardDetailsComponent implements OnInit {
     } else if (formControl.errors.maxlength) {
       const requiredLength = formControl.errors.maxlength.requiredLength;
       return `O campo deve ter no máximo ${requiredLength} caracteres  *`;
+    } else if (formControl.errors.mask) {
+      return `Deve colocar um CPF ou CNPJ no campo *`;
     }
   }
 
