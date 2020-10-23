@@ -1,0 +1,13 @@
+.establishment-details-page {
+  background-color: #e5e5e5;
+  height: -webkit-fill-available;
+  overflow: auto;
+
+  &__content {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+  }
+}
