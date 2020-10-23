@@ -60,7 +60,7 @@ export class CardDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((confirmed) => {
       if (confirmed) {
-        this.saveEstablishment();
+        this.saveEstablishment(this.establishmentForm);
       }
     });
   }
@@ -157,22 +157,19 @@ export class CardDetailsComponent implements OnInit {
 
   updateAndFetchEstablishment(establishment: Establishment): void {
     this.establishmentService.saveEstablishment(establishment).then(() => {
-      this.establishmentService
-        .getEstablishmentById(this.establishment.id)
-        .then((res) => {
-          this.establishment = res;
-        });
+      this.establishment = establishment;
     });
   }
 
-  saveEstablishment(): void {
+  saveEstablishment(form: FormGroup): void {
     let newEstablishmentValues = {
       ...this.establishment,
-      ...this.establishmentForm.value,
+      ...form.value,
     };
+
     if (this.imageData) {
       newEstablishmentValues = {
-        ...this.establishment,
+        ...newEstablishmentValues,
         picture: this.imageData,
       };
     }

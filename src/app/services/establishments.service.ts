@@ -27,19 +27,62 @@ export class EstablishmentsService {
       if (!dbValues.length) {
         this.getEstablishmentsFromApi();
         this.bsEstablishments.subscribe((establishments) => {
-          this.newEstablishments(establishments);
+          this.createNewEstablishments(establishments);
         });
       } else {
-        this.establishments = dbValues;
-        this.bsEstablishments.next(this.establishments);
+        this.handleNewerEstablishments(dbValues);
       }
     });
   }
 
-  private newEstablishments(establishments: Establishment[]): void {
+  private handleNewerEstablishments(dbValues: Establishment[]): void {
+    this.http.get<Establishment[]>(`${this.apiUrl}/establishments`).subscribe(
+      (res) => {
+        this.mergeData(dbValues, res.sort(this.orderById));
+      },
+      () => {
+        this.http.get<EstablishmentDb>(`${this.apiUrl}/db`).subscribe((res) => {
+          this.mergeData(dbValues, res.establishments.sort(this.orderById));
+        });
+      }
+    );
+  }
+
+  private comparer(otherArray) {
+    return function (current) {
+      return (
+        otherArray.filter(function (other) {
+          return other.id === current.id;
+        }).length == 0
+      );
+    };
+  }
+
+  private mergeData(
+    dbValues: Establishment[],
+    newerEstablishments: Establishment[]
+  ) {
+    var newDataFromApi = newerEstablishments.filter(this.comparer(dbValues));
+
+    const result = dbValues.concat(newDataFromApi);
+    this.establishments = result;
+    this.bsEstablishments.next(this.establishments);
+    this.bsEstablishments.subscribe((establishments) => {
+      this.updateEstablishments(establishments);
+    });
+  }
+
+  private createNewEstablishments(establishments: Establishment[]): void {
     let transaction = this.db.transaction(Data.STORE_NAME, 'readwrite');
     establishments.forEach((establishment) => {
       transaction.store.add(establishment);
+    });
+  }
+
+  private updateEstablishments(establishments: Establishment[]): void {
+    let transaction = this.db.transaction(Data.STORE_NAME, 'readwrite');
+    establishments.forEach((establishment) => {
+      transaction.store.put(establishment);
     });
   }
 
