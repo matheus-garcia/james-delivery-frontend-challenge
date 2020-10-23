@@ -12,7 +12,10 @@ export class LocalDbService {
   async startDatabase(): Promise<void> {
     this.data = await openDB('pwa-establishments', 1, {
       upgrade(db) {
-        db.createObjectStore(Data.STORE_NAME, { keyPath: 'id' });
+        db.createObjectStore(Data.STORE_NAME, {
+          keyPath: 'id',
+          autoIncrement: true,
+        });
       },
     });
   }
