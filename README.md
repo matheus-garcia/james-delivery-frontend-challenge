@@ -10,18 +10,23 @@
   </p>
 </p>
 
-# James Delivery Frontend Challenge
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
-
 ## Development server
+
+Run `npm install -g @angular/cli` if you don't have the angular CLI already installed.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Deploy
+## Deploy: 
 
-Deploy on docker with Nginx use:
-`docker-compose up --build james-delivery-frontend-challenge`
+### Using minified files
+
+Run `ng build --prod` By default it will write output to a folder named dist/ in the current project, with the minified files.
+
+### Using Docker
+
+Run `docker-compose up --build james-delivery-frontend-challenge`
+
+Navigate to `http://localhost:8080/`
 
 ## Challenge
 
@@ -43,5 +48,9 @@ Deploy on docker with Nginx use:
 ## Deliverables
 
 - [x] The source code must be placed in a public git repository.
-- [ ] Instructions of how to run the development environment.
-- [ ] Instructions of how to deploy.
+- [x] Instructions of how to run the development environment.
+- [x] Instructions of how to deploy.
+
+# James Delivery Frontend Challenge
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
